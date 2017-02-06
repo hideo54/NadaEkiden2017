@@ -20,9 +20,9 @@ def connected(tag):
     true_key = binascii.hexlify(dk)
 
     if data['key'] == true_key:
-        print now_str
+        print '%s %s' % (now_str, data['id'])
     else:
-        print 'Invalid'
+        print '** This tag may be manipulated ** %s %s' % (now_str, data['id'])
 
 clf = nfc.ContactlessFrontend('usb')
 clf.connect(rdwr={'on-connect': connected})
