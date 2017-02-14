@@ -8,7 +8,7 @@ def connected(tag):
     salt = ''
     with open('salt.txt') as f:
         salt = f.read().rstrip('\n')
-    dk = hashlib.pbkdf2_hmac('sha256', num, salt, 114514)
+    dk = hashlib.pbkdf2_hmac('sha256', num, salt, 810)
     key = binascii.hexlify(dk)
     data = { 'id': num, 'key': key }
     record = nfc.ndef.TextRecord(str(json.dumps(data)))
