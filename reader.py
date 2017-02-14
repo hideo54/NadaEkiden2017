@@ -9,13 +9,24 @@ SUCCESS = '\033[32mSUCCESS\033[0m'
 WARNING = '\033[35mWARNING\033[0m'
 CRITICAL = '\033[37m\033[41mCRITICAL\033[0m'
 
-def output(code, id, date, message=None):
+def output(code, idStr, date, message=None):
     if code == 0:
-        print '%s[%s] %s' % (SUCCESS, id, date)
+        print '%s[%s] %s' % (SUCCESS, idStr, date)
     elif code == 1:
-        print '%s[%s] %s (Falsification detected)' % (WARNING, id, date)
+        print '%s[%s] %s (Falsification detected)' % (WARNING, idStr, date)
     else:
         print '%s %s' % (CRITICAL, message)
+    if code == 0 or code == 1:
+        with open('log.json', 'a+') as f:
+            dataStr = f.read()
+            if dataStr == '': dataStr = '[]'
+            data = json.loads(dataStr)
+            data.append({
+                'code': code,
+                'id': int(idStr),
+                'date': date
+            })
+            f.write(json.dumps(data) + '\n')
 
 def ascii_encode_dict(data):
     ascii_encode = lambda x: x.encode('ascii')
