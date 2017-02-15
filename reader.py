@@ -17,15 +17,17 @@ def output(code, idStr, date, message=None):
     else:
         print '%s %s' % (CRITICAL, message)
     if code == 0 or code == 1:
-        with open('log.json', 'a+') as f:
+        data = []
+        with open('log.json', 'r') as f:
             dataStr = f.read()
             if dataStr == '': dataStr = '[]'
-            data = json.loads(dataStr)
-            data.append({
-                'code': code,
-                'id': int(idStr),
-                'date': date
-            })
+            data = json.loads(dataStr.rstrip('\n'))
+        data.append({
+            'code': code,
+            'id': int(idStr),
+            'date': date
+        })
+        with open('log.json', 'w') as f:
             f.write(json.dumps(data) + '\n')
 
 def ascii_encode_dict(data):
