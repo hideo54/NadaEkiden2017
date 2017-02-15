@@ -12,7 +12,11 @@ def connected(tag):
     key = binascii.hexlify(dk)
     data = { 'id': num, 'key': key }
     record = nfc.ndef.TextRecord(str(json.dumps(data)))
-    tag.ndef.message = nfc.ndef.Message(record)
+    try:
+        tag.ndef.message = nfc.ndef.Message(record)
+    except AttributeError:
+        tag.format()
+        print 'Formatted. Execute this program again.'
     print tag.ndef.message.pretty()
 
 clf = nfc.ContactlessFrontend('usb')
