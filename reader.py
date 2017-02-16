@@ -54,6 +54,8 @@ def connected(tag):
         clf.close()
         print 'Bye'
         sys.exit()
+    except AttributeError:
+        output(2, 0, '', 'Invalid card tapped')
     except:
         output(2, 0, '', 'Unknown error occurred')
         sys.exit()
