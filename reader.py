@@ -52,7 +52,7 @@ def connected(tag):
             output(1, data['id'], now_str)
     except KeyboardInterrupt:
         clf.close()
-        print 'Bye'
+        print '\nBye'
         sys.exit()
     except AttributeError:
         output(2, 0, '', 'Invalid card tapped')
@@ -82,5 +82,5 @@ while True:
         time.sleep(0.5)
     except KeyboardInterrupt:
         clf.close()
-        print 'Bye'
+        print '\nBye'
         sys.exit()
